@@ -1,14 +1,4 @@
-/* Custom base styles beyond Tailwind */
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  /* Prevent horizontal scrolling issues on mobile */
-  overflow-x: hidden;
-}
-
-/* Texture overlay to give it the premium grainy feel */
+/* Grain texture overlay */
 .grain {
   position: fixed;
   top: 0;
@@ -18,4 +8,65 @@ body {
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
   z-index: 1;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: #0a0a0a;
+}
+
+/* Scroll Reveal Animations */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.5, 0, 0, 1), transform 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal-up.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animation Delays */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+
+/* Custom masonry setup for categories */
+@media (min-width: 1024px) {
+  .masonry-grid { 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 16px; 
+    grid-auto-rows: 240px; 
+  }
+  .category-card:nth-child(1), .category-card:nth-child(6) { 
+    grid-column: span 2; 
+  }
+}
+
+@media (max-width: 1023px) and (min-width: 640px) {
+  .masonry-grid { 
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 16px; 
+    grid-auto-rows: 200px; 
+  }
+}
+
+@media (max-width: 639px) {
+  .masonry-grid { 
+    display: grid; 
+    grid-template-columns: 1fr; 
+    gap: 16px; 
+    grid-auto-rows: 180px; 
+  }
+}
+
+/* Gradient Text utility */
+.text-gradient {
+  background: linear-gradient(135deg, #2dd4bf 0%, #10b981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
