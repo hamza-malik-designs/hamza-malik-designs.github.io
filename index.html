@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Malik Hamza - Premium Portfolio</title>
   <meta name="description" content="Portfolio of Malik Hamza, a Social Media Manager and Graphic Designer.">
-  
   <link rel="icon" type="image/png" href="https://res.cloudinary.com/dx3kp9czc/image/upload/v1773676526/MHN_Favicon_1_ygku7d.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,12 +20,7 @@
       theme: {
         extend: {
           colors: {
-            brand: {
-              teal: '#2dd4bf',
-              emerald: '#10b981',
-              dark: '#0a0a0a',
-              card: 'rgba(26, 26, 26, 0.6)'
-            }
+            brand: { teal: '#2dd4bf', emerald: '#10b981', dark: '#0a0a0a', card: 'rgba(26, 26, 26, 0.6)' }
           },
           fontFamily: {
             sans: ['Inter', 'sans-serif'],
@@ -37,17 +31,53 @@
     }
   </script>
 
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Grain texture overlay */
+    .grain {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+      z-index: 1;
+    }
+
+    body { overflow-x: hidden; background-color: #0a0a0a; }
+
+    /* Scroll Reveal Animations */
+    .reveal-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.5, 0, 0, 1), transform 0.8s cubic-bezier(0.5, 0, 0, 1);
+    }
+    .reveal-up.active { opacity: 1; transform: translateY(0); }
+    .delay-100 { transition-delay: 100ms; }
+    .delay-200 { transition-delay: 200ms; }
+    .delay-300 { transition-delay: 300ms; }
+    .delay-400 { transition-delay: 400ms; }
+
+    /* Custom masonry setup for categories */
+    @media (min-width: 1024px) {
+      .masonry-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; grid-auto-rows: 240px; }
+      .category-card:nth-child(1), .category-card:nth-child(6) { grid-column: span 2; }
+    }
+    @media (max-width: 1023px) and (min-width: 640px) {
+      .masonry-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; grid-auto-rows: 200px; }
+    }
+    @media (max-width: 639px) {
+      .masonry-grid { display: grid; grid-template-columns: 1fr; gap: 16px; grid-auto-rows: 180px; }
+    }
+
+    /* Gradient Text utility */
+    .text-gradient { background: linear-gradient(135deg, #2dd4bf 0%, #10b981 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  </style>
 </head>
-<body class="bg-brand-dark text-gray-100 font-sans overflow-x-hidden antialiased">
+<body class="text-gray-100 font-sans antialiased selection:bg-brand-teal selection:text-black">
 
   <div class="grain"></div>
 
-  <nav class="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+  <nav class="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20">
-        <a href="#home" class="flex items-center justify-center w-12 h-12 rounded-xl border border-brand-teal/30 bg-gradient-to-br from-brand-teal/10 to-transparent shadow-[0_0_15px_rgba(45,212,191,0.2)] hover:scale-105 transition-transform">
-          <span class="font-serif font-bold text-xl bg-gradient-to-br from-brand-teal to-brand-emerald bg-clip-text text-transparent">MH</span>
+        <a href="#home" class="flex items-center justify-center w-12 h-12 rounded-xl border border-brand-teal/30 bg-gradient-to-br from-brand-teal/10 to-transparent hover:scale-105 transition-transform relative z-10">
+          <span class="font-serif font-bold text-xl text-gradient">MH</span>
         </a>
 
         <div class="hidden md:flex items-center space-x-8">
@@ -56,53 +86,49 @@
           <a href="#services" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Services</a>
           <a href="#portfolio" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Portfolio</a>
           <a href="#contact" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Contact</a>
-          <a href="https://wa.me/923125956779" target="_blank" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-brand-teal to-brand-emerald text-black font-bold text-sm shadow-[0_0_20px_rgba(45,212,191,0.3)] hover:scale-105 transition-all">
-            Hire Me
-          </a>
+          <a href="https://wa.me/923125956779" target="_blank" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-brand-teal to-brand-emerald text-black font-bold text-sm hover:scale-105 transition-transform shadow-[0_0_20px_rgba(45,212,191,0.2)]">Hire Me</a>
         </div>
 
         <div class="md:hidden flex items-center">
-          <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+          <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none relative z-10">
             <i data-lucide="menu" class="w-8 h-8"></i>
           </button>
         </div>
       </div>
     </div>
 
-    <div id="mobile-menu" class="hidden bg-black/95 backdrop-blur-lg border-b border-white/10 absolute w-full left-0 top-20 flex-col items-center py-6 space-y-6 shadow-2xl">
-      <a href="#home" class="mobile-link text-lg font-medium text-gray-300 hover:text-brand-teal">Home</a>
-      <a href="#about" class="mobile-link text-lg font-medium text-gray-300 hover:text-brand-teal">About</a>
-      <a href="#services" class="mobile-link text-lg font-medium text-gray-300 hover:text-brand-teal">Services</a>
-      <a href="#portfolio" class="mobile-link text-lg font-medium text-gray-300 hover:text-brand-teal">Portfolio</a>
-      <a href="#contact" class="mobile-link text-lg font-medium text-gray-300 hover:text-brand-teal">Contact</a>
-      <a href="https://wa.me/923125956779" target="_blank" class="px-8 py-3 rounded-full bg-gradient-to-r from-brand-teal to-brand-emerald text-black font-bold text-base shadow-[0_0_20px_rgba(45,212,191,0.3)]">
-        Hire Me
-      </a>
+    <div id="mobile-menu" class="hidden md:hidden bg-black/95 backdrop-blur-xl border-b border-white/10 absolute w-full left-0 top-0 pt-24 pb-8 flex-col items-center space-y-6 shadow-2xl h-screen">
+      <a href="#home" class="mobile-link text-xl font-medium text-gray-300 hover:text-brand-teal">Home</a>
+      <a href="#about" class="mobile-link text-xl font-medium text-gray-300 hover:text-brand-teal">About</a>
+      <a href="#services" class="mobile-link text-xl font-medium text-gray-300 hover:text-brand-teal">Services</a>
+      <a href="#portfolio" class="mobile-link text-xl font-medium text-gray-300 hover:text-brand-teal">Portfolio</a>
+      <a href="#contact" class="mobile-link text-xl font-medium text-gray-300 hover:text-brand-teal">Contact</a>
+      <a href="https://wa.me/923125956779" target="_blank" class="px-8 py-3 mt-4 rounded-full bg-gradient-to-r from-brand-teal to-brand-emerald text-black font-bold">Hire Me</a>
     </div>
   </nav>
 
   <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-    <div class="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] md:w-[40vw] md:h-[40vw] rounded-full bg-brand-teal/10 blur-[100px]"></div>
-    <div class="absolute bottom-[20%] right-[-10%] w-[50vw] h-[50vw] md:w-[30vw] md:h-[30vw] rounded-full bg-purple-600/10 blur-[120px]"></div>
+    <div class="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] md:w-[40vw] md:h-[40vw] rounded-full bg-brand-teal/10 blur-[120px]"></div>
+    <div class="absolute bottom-[10%] right-[-10%] w-[50vw] h-[50vw] md:w-[30vw] md:h-[30vw] rounded-full bg-purple-600/10 blur-[120px]"></div>
   </div>
 
   <section id="home" class="relative z-10 pt-32 pb-16 md:pt-48 md:pb-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center gap-12 lg:gap-24">
     <div class="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left space-y-6">
-      <span class="inline-block px-4 py-1.5 rounded-full border border-brand-teal/30 bg-brand-teal/10 text-brand-teal text-xs font-bold tracking-widest uppercase">
+      <span class="reveal-up inline-flex items-center px-4 py-1.5 rounded-full border border-brand-teal/30 bg-brand-teal/10 text-brand-teal text-xs font-bold tracking-widest uppercase">
         ✦ Available for Projects
       </span>
-      <p class="text-sm md:text-base text-gray-400 tracking-widest uppercase">Social Media Manager & Graphic Designer</p>
-      <h1 class="font-serif text-5xl sm:text-6xl lg:text-8xl font-extrabold leading-none tracking-tight">
-        MALIK<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-teal to-brand-emerald">HAMZA</span>
+      <p class="reveal-up delay-100 text-sm md:text-base text-gray-400 tracking-widest uppercase font-medium">Social Media Manager & Graphic Designer</p>
+      <h1 class="reveal-up delay-200 font-serif text-5xl sm:text-6xl lg:text-[80px] font-extrabold leading-none tracking-tight">
+        MALIK<br><span class="text-gradient">HAMZA</span>
       </h1>
-      <p class="text-gray-400 text-lg md:text-xl leading-relaxed max-w-lg">
+      <p class="reveal-up delay-300 text-gray-400 text-lg md:text-xl leading-relaxed max-w-lg">
         Crafting digital experiences that elevate brands, drive engagement, and convert audiences into loyal communities.
       </p>
-      <div class="flex flex-col sm:flex-row gap-4 pt-4 w-full sm:w-auto">
-        <a href="#portfolio" class="px-8 py-4 text-center rounded-full bg-gradient-to-r from-brand-teal to-brand-emerald text-black font-bold hover:scale-105 transition-transform shadow-[0_4px_20px_rgba(45,212,191,0.3)]">View My Work</a>
+      <div class="reveal-up delay-400 flex flex-col sm:flex-row gap-4 pt-4 w-full sm:w-auto">
+        <a href="#portfolio" class="px-8 py-4 text-center rounded-full bg-gradient-to-r from-brand-teal to-brand-emerald text-black font-bold hover:scale-105 transition-transform flex items-center justify-center gap-2">View My Work <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
         <a href="#contact" class="px-8 py-4 text-center rounded-full border border-white/20 text-white font-semibold hover:border-brand-teal hover:text-brand-teal transition-colors">Let's Talk</a>
       </div>
-      <div class="flex items-center gap-4 pt-6 text-sm text-gray-500">
+      <div class="reveal-up delay-400 flex items-center justify-center md:justify-start gap-4 pt-6 text-sm text-gray-500">
         <div class="flex -space-x-3">
           <div class="w-8 h-8 rounded-full border-2 border-brand-dark bg-brand-teal flex items-center justify-center text-black font-bold text-xs z-20">M</div>
           <div class="w-8 h-8 rounded-full border-2 border-brand-dark bg-brand-emerald flex items-center justify-center text-black font-bold text-xs z-10">H</div>
@@ -111,196 +137,194 @@
         <p>Trusted by 20+ brands globally</p>
       </div>
     </div>
-    <div class="w-full md:w-1/2 flex justify-center md:justify-end relative">
-      <div class="relative w-64 h-80 sm:w-80 sm:h-[400px] lg:w-[400px] lg:h-[500px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl z-10">
-        <img src="https://res.cloudinary.com/dx3kp9czc/image/upload/v1773457390/Untitled_design_5_noywvd.png" alt="Malik Hamza" class="w-full h-full object-cover">
+    
+    <div class="w-full md:w-1/2 flex justify-center md:justify-end relative reveal-up delay-200">
+      <div class="relative w-64 h-80 sm:w-80 sm:h-[400px] lg:w-[420px] lg:h-[520px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+        <img src="https://res.cloudinary.com/dx3kp9czc/image/upload/v1773457390/Untitled_design_5_noywvd.png" alt="Malik Hamza" class="w-full h-full object-cover relative z-10">
+        <div class="absolute inset-0 bg-brand-teal/20 blur-3xl z-0"></div>
       </div>
-      <div class="absolute -bottom-6 -left-6 md:-left-12 bg-black/80 backdrop-blur-md border border-white/10 p-4 rounded-xl shadow-xl hidden sm:block z-20">
-        <p class="text-white font-bold">50+ Projects</p>
-        <p class="text-xs text-gray-400">Successfully Delivered</p>
+      <div class="hidden md:block absolute -bottom-6 -left-10 bg-black/80 backdrop-blur-md border border-white/10 p-5 rounded-2xl shadow-xl z-20 hover:-translate-y-2 transition-transform">
+        <p class="text-white font-bold text-lg">50+ Projects</p>
+        <p class="text-xs text-brand-teal mt-1">Successfully Delivered</p>
       </div>
     </div>
   </section>
 
-  <section id="about" class="relative z-10 py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/5">
+  <section id="about" class="relative z-10 py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/5">
     <div class="flex flex-col lg:flex-row items-center gap-16">
-      <div class="w-full lg:w-5/12 relative flex justify-center">
-        <div class="w-full max-w-md aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative z-10">
+      <div class="w-full lg:w-5/12 relative flex justify-center reveal-up">
+        <div class="w-full max-w-sm lg:max-w-md aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative z-10">
           <img src="https://res.cloudinary.com/dx3kp9czc/image/upload/v1773457389/Untitled_design_4_zctgkg.png" alt="About Malik" class="w-full h-full object-cover">
         </div>
-        <div class="absolute -bottom-6 -right-2 sm:-right-8 bg-black/80 backdrop-blur-md border border-brand-teal/30 p-5 rounded-xl shadow-xl text-center z-20">
-          <p class="text-3xl font-bold text-brand-teal mb-1">3+</p>
-          <p class="text-xs text-gray-400">Years Experience</p>
+        <div class="absolute -bottom-6 right-4 sm:-right-4 bg-black/80 backdrop-blur-md border border-brand-teal/30 p-6 rounded-2xl shadow-xl text-center z-20">
+          <p class="text-4xl font-bold text-gradient mb-1">3+</p>
+          <p class="text-xs text-gray-400 font-medium">Years Experience</p>
         </div>
       </div>
+      
       <div class="w-full lg:w-7/12 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
-        <span class="text-brand-teal text-xs font-bold tracking-[0.2em] uppercase">── About Me ──</span>
-        <h2 class="font-serif text-4xl md:text-5xl font-extrabold text-white leading-tight">
+        <span class="reveal-up text-brand-teal text-xs font-bold tracking-[0.2em] uppercase">── About Me ──</span>
+        <h2 class="reveal-up delay-100 font-serif text-4xl md:text-5xl font-extrabold text-white leading-tight">
           Designing Brands.<br><span class="text-gray-400">Driving Growth.</span>
         </h2>
-        <p class="text-gray-400 text-base md:text-lg leading-relaxed">
+        <p class="reveal-up delay-200 text-gray-400 text-base md:text-lg leading-relaxed max-w-2xl">
           I am Malik Hamza — a creative Social Media Manager and Graphic Designer with a passion for building powerful digital brands. I specialize in content strategy, brand identity design, and performance-driven creatives that generate real engagement and measurable growth.
         </p>
-        <p class="text-gray-400 text-base md:text-lg leading-relaxed">
+        <p class="reveal-up delay-300 text-gray-400 text-base md:text-lg leading-relaxed max-w-2xl">
           My approach merges strategic thinking with visual storytelling to create content that doesn't just look good — it performs. From social media management to complete brand identity systems, I deliver work that makes brands stand out and scale.
         </p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 w-full">
-          <div class="flex items-center justify-center lg:justify-start gap-3"><i data-lucide="check" class="text-brand-teal w-5 h-5 flex-shrink-0"></i><span class="text-gray-300 text-sm md:text-base">Social Media Strategy</span></div>
-          <div class="flex items-center justify-center lg:justify-start gap-3"><i data-lucide="check" class="text-brand-teal w-5 h-5 flex-shrink-0"></i><span class="text-gray-300 text-sm md:text-base">Paid Ads Creatives</span></div>
-          <div class="flex items-center justify-center lg:justify-start gap-3"><i data-lucide="check" class="text-brand-teal w-5 h-5 flex-shrink-0"></i><span class="text-gray-300 text-sm md:text-base">Brand Identity Systems</span></div>
-          <div class="flex items-center justify-center lg:justify-start gap-3"><i data-lucide="check" class="text-brand-teal w-5 h-5 flex-shrink-0"></i><span class="text-gray-300 text-sm md:text-base">Performance Analytics</span></div>
-          <div class="flex items-center justify-center lg:justify-start gap-3"><i data-lucide="check" class="text-brand-teal w-5 h-5 flex-shrink-0"></i><span class="text-gray-300 text-sm md:text-base">Campaign Graphics</span></div>
-          <div class="flex items-center justify-center lg:justify-start gap-3"><i data-lucide="check" class="text-brand-teal w-5 h-5 flex-shrink-0"></i><span class="text-gray-300 text-sm md:text-base">Video & Motion Editing</span></div>
+        <div class="reveal-up delay-400 grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 w-full">
+          <div class="flex items-center justify-center lg:justify-start gap-3"><i data-lucide="check-circle-2" class="text-brand-teal w-5 h-5"></i><span class="text-gray-300">Social Media Strategy</span></div>
+          <div class="flex items-center justify-center lg:justify-start gap-3"><i data-lucide="check-circle-2" class="text-brand-teal w-5 h-5"></i><span class="text-gray-300">Paid Ads Creatives</span></div>
+          <div class="flex items-center justify-center lg:justify-start gap-3"><i data-lucide="check-circle-2" class="text-brand-teal w-5 h-5"></i><span class="text-gray-300">Brand Identity Systems</span></div>
+          <div class="flex items-center justify-center lg:justify-start gap-3"><i data-lucide="check-circle-2" class="text-brand-teal w-5 h-5"></i><span class="text-gray-300">Performance Analytics</span></div>
+          <div class="flex items-center justify-center lg:justify-start gap-3"><i data-lucide="check-circle-2" class="text-brand-teal w-5 h-5"></i><span class="text-gray-300">Campaign Graphics</span></div>
+          <div class="flex items-center justify-center lg:justify-start gap-3"><i data-lucide="check-circle-2" class="text-brand-teal w-5 h-5"></i><span class="text-gray-300">Video & Motion Editing</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="services" class="relative z-10 py-24 bg-[#0d0d0d]">
+  <section id="services" class="relative z-10 py-24 bg-[#0d0d0d] border-t border-white/5">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
+      <div class="text-center mb-16 reveal-up">
         <span class="text-brand-teal text-xs font-bold tracking-[0.2em] uppercase mb-4 block">── What I Offer ──</span>
         <h2 class="font-serif text-4xl md:text-5xl font-extrabold text-white mb-6">Services & Expertise</h2>
         <p class="text-gray-400 max-w-2xl mx-auto text-lg">Strategic solutions designed to grow your brand's digital presence and visual identity.</p>
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-brand-card backdrop-blur-sm border border-white/5 p-8 rounded-3xl hover:-translate-y-2 hover:border-brand-teal/30 transition-all duration-300 group">
+        <div class="reveal-up delay-100 bg-white/[0.03] border border-white/5 p-8 rounded-3xl hover:-translate-y-2 hover:border-brand-teal/30 transition-all duration-300 group shadow-lg">
           <div class="flex justify-between items-start mb-6">
-            <div class="w-14 h-14 rounded-full bg-brand-teal/10 text-brand-teal flex items-center justify-center border border-brand-teal/20 group-hover:scale-110 transition-transform">
-              <i data-lucide="smartphone" class="w-6 h-6"></i>
-            </div>
-            <span class="px-3 py-1 bg-brand-teal text-black text-xs font-bold rounded-full uppercase tracking-wider">Popular</span>
+            <div class="w-14 h-14 rounded-full bg-brand-teal/10 text-brand-teal flex items-center justify-center border border-brand-teal/20 group-hover:scale-110 transition-transform"><i data-lucide="smartphone" class="w-6 h-6"></i></div>
+            <span class="px-3 py-1 bg-brand-teal/20 text-brand-teal border border-brand-teal/30 text-xs font-bold rounded-full uppercase tracking-wider">Popular</span>
           </div>
           <h3 class="text-2xl font-bold text-white mb-4">Social Media Management</h3>
           <p class="text-gray-400 mb-6">End-to-end social media strategy, content planning, and performance analytics to grow your brand's digital presence.</p>
           <ul class="space-y-3 text-sm text-gray-300">
-            <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-brand-teal"></div> Content Strategy & Calendar</li>
-            <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-brand-teal"></div> Monthly Planning & Scheduling</li>
-            <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-brand-teal"></div> Community Engagement & Growth</li>
-            <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-brand-teal"></div> Performance Tracking & Reporting</li>
+            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brand-teal w-4 h-4"></i> Content Strategy & Calendar</li>
+            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brand-teal w-4 h-4"></i> Monthly Planning & Scheduling</li>
+            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brand-teal w-4 h-4"></i> Community Engagement & Growth</li>
+            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brand-teal w-4 h-4"></i> Performance Tracking & Reporting</li>
           </ul>
         </div>
-        <div class="bg-brand-card backdrop-blur-sm border border-white/5 p-8 rounded-3xl hover:-translate-y-2 hover:border-brand-emerald/30 transition-all duration-300 group">
-          <div class="flex justify-between items-start mb-6">
-            <div class="w-14 h-14 rounded-full bg-brand-emerald/10 text-brand-emerald flex items-center justify-center border border-brand-emerald/20 group-hover:scale-110 transition-transform">
-              <i data-lucide="palette" class="w-6 h-6"></i>
-            </div>
+        
+        <div class="reveal-up delay-200 bg-white/[0.03] border border-white/5 p-8 rounded-3xl hover:-translate-y-2 hover:border-brand-emerald/30 transition-all duration-300 group shadow-lg">
+          <div class="mb-6">
+            <div class="w-14 h-14 rounded-full bg-brand-emerald/10 text-brand-emerald flex items-center justify-center border border-brand-emerald/20 group-hover:scale-110 transition-transform"><i data-lucide="palette" class="w-6 h-6"></i></div>
           </div>
           <h3 class="text-2xl font-bold text-white mb-4">Graphic Design</h3>
-          <p class="text-gray-400 mb-6">Eye-catching visual content designed to stop the scroll — from social media posts to full campaign creatives and marketing materials.</p>
+          <p class="text-gray-400 mb-6">Eye-catching visual content designed to stop the scroll — from social media posts to full campaign creatives.</p>
           <ul class="space-y-3 text-sm text-gray-300">
-            <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-brand-emerald"></div> Social Media Post Design</li>
-            <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-brand-emerald"></div> Marketing & Ad Creatives</li>
-            <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-brand-emerald"></div> Campaign Visual Design</li>
-            <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-brand-emerald"></div> Presentation & Deck Design</li>
+            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brand-emerald w-4 h-4"></i> Social Media Post Design</li>
+            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brand-emerald w-4 h-4"></i> Marketing & Ad Creatives</li>
+            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brand-emerald w-4 h-4"></i> Campaign Visual Design</li>
+            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brand-emerald w-4 h-4"></i> Presentation & Deck Design</li>
           </ul>
         </div>
-        <div class="bg-brand-card backdrop-blur-sm border border-white/5 p-8 rounded-3xl hover:-translate-y-2 hover:border-yellow-500/30 transition-all duration-300 group">
-          <div class="flex justify-between items-start mb-6">
-            <div class="w-14 h-14 rounded-full bg-yellow-500/10 text-yellow-500 flex items-center justify-center border border-yellow-500/20 group-hover:scale-110 transition-transform">
-              <i data-lucide="sparkles" class="w-6 h-6"></i>
-            </div>
+
+        <div class="reveal-up delay-300 bg-white/[0.03] border border-white/5 p-8 rounded-3xl hover:-translate-y-2 hover:border-yellow-500/30 transition-all duration-300 group shadow-lg">
+          <div class="mb-6">
+            <div class="w-14 h-14 rounded-full bg-yellow-500/10 text-yellow-500 flex items-center justify-center border border-yellow-500/20 group-hover:scale-110 transition-transform"><i data-lucide="sparkles" class="w-6 h-6"></i></div>
           </div>
           <h3 class="text-2xl font-bold text-white mb-4">Branding & Identity</h3>
-          <p class="text-gray-400 mb-6">Complete brand identity systems that make your business look professional, memorable, and consistent across every touchpoint.</p>
+          <p class="text-gray-400 mb-6">Complete brand identity systems that make your business look professional, memorable, and consistent.</p>
           <ul class="space-y-3 text-sm text-gray-300">
-            <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-yellow-500"></div> Logo Design & Concepts</li>
-            <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-yellow-500"></div> Brand Guidelines & Systems</li>
-            <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-yellow-500"></div> Visual Identity Development</li>
-            <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-yellow-500"></div> Rebranding & Brand Refresh</li>
+            <li class="flex items-center gap-3"><i data-lucide="check" class="text-yellow-500 w-4 h-4"></i> Logo Design & Concepts</li>
+            <li class="flex items-center gap-3"><i data-lucide="check" class="text-yellow-500 w-4 h-4"></i> Brand Guidelines & Systems</li>
+            <li class="flex items-center gap-3"><i data-lucide="check" class="text-yellow-500 w-4 h-4"></i> Visual Identity Development</li>
+            <li class="flex items-center gap-3"><i data-lucide="check" class="text-yellow-500 w-4 h-4"></i> Rebranding & Brand Refresh</li>
           </ul>
         </div>
-        <div class="bg-brand-card backdrop-blur-sm border border-white/5 p-8 rounded-3xl hover:-translate-y-2 hover:border-blue-500/30 transition-all duration-300 group">
-          <div class="flex justify-between items-start mb-6">
-            <div class="w-14 h-14 rounded-full bg-blue-500/10 text-blue-500 flex items-center justify-center border border-blue-500/20 group-hover:scale-110 transition-transform">
-              <i data-lucide="video" class="w-6 h-6"></i>
-            </div>
+
+        <div class="reveal-up delay-400 bg-white/[0.03] border border-white/5 p-8 rounded-3xl hover:-translate-y-2 hover:border-blue-500/30 transition-all duration-300 group shadow-lg">
+          <div class="mb-6">
+            <div class="w-14 h-14 rounded-full bg-blue-500/10 text-blue-500 flex items-center justify-center border border-blue-500/20 group-hover:scale-110 transition-transform"><i data-lucide="video" class="w-6 h-6"></i></div>
           </div>
           <h3 class="text-2xl font-bold text-white mb-4">Video & Content Creation</h3>
-          <p class="text-gray-400 mb-6">Dynamic video content for social platforms — from short-form reels to promotional videos, thumbnails, and ad creatives that capture attention.</p>
+          <p class="text-gray-400 mb-6">Dynamic video content for social platforms — from short-form reels to promotional videos and ads.</p>
           <ul class="space-y-3 text-sm text-gray-300">
-            <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div> Reels & Short-Form Editing</li>
-            <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div> Promotional & Brand Videos</li>
-            <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div> YouTube Thumbnails Design</li>
-            <li class="flex items-center gap-3"><div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div> Ad Video Creatives & Motion</li>
+            <li class="flex items-center gap-3"><i data-lucide="check" class="text-blue-500 w-4 h-4"></i> Reels & Short-Form Editing</li>
+            <li class="flex items-center gap-3"><i data-lucide="check" class="text-blue-500 w-4 h-4"></i> Promotional & Brand Videos</li>
+            <li class="flex items-center gap-3"><i data-lucide="check" class="text-blue-500 w-4 h-4"></i> YouTube Thumbnails Design</li>
+            <li class="flex items-center gap-3"><i data-lucide="check" class="text-blue-500 w-4 h-4"></i> Ad Video Creatives & Motion</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="tools" class="relative z-10 py-24 border-y border-white/5">
+  <section class="relative z-10 py-24 border-y border-white/5 bg-black">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
+      <div class="text-center mb-16 reveal-up">
         <span class="text-brand-teal text-xs font-bold tracking-[0.2em] uppercase mb-4 block">── My Toolkit ──</span>
         <h2 class="font-serif text-4xl md:text-5xl font-extrabold text-white mb-4">Tools & Platforms</h2>
         <p class="text-gray-400 text-lg">The professional tools and platforms I use to deliver exceptional results.</p>
       </div>
 
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
-        <div class="flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
-          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#31a8ff] group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="image-square"></i></div>
-          <span class="text-xs text-gray-400 font-medium">Photoshop</span>
+        <div class="reveal-up delay-100 flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#31a8ff] group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="image-square" class="w-6 h-6"></i></div>
+          <span class="text-sm text-gray-400 font-medium">Photoshop</span>
         </div>
-        <div class="flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
-          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#00c4cc] group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="palette"></i></div>
-          <span class="text-xs text-gray-400 font-medium">Canva</span>
+        <div class="reveal-up delay-200 flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#ff9a00] group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="pen-tool" class="w-6 h-6"></i></div>
+          <span class="text-sm text-gray-400 font-medium">Illustrator</span>
         </div>
-        <div class="flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
-          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-white group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="scissors"></i></div>
-          <span class="text-xs text-gray-400 font-medium">CapCut</span>
+        <div class="reveal-up delay-300 flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#00c4cc] group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="palette" class="w-6 h-6"></i></div>
+          <span class="text-sm text-gray-400 font-medium">Canva</span>
         </div>
-        <div class="flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
-          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#0081fb] group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="trending-up"></i></div>
-          <span class="text-xs text-gray-400 font-medium text-center">Meta Ads</span>
+        <div class="reveal-up delay-400 flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-white group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="scissors" class="w-6 h-6"></i></div>
+          <span class="text-sm text-gray-400 font-medium">CapCut</span>
         </div>
-        <div class="flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
-          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#34a853] group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="folder-cloud"></i></div>
-          <span class="text-xs text-gray-400 font-medium text-center">Google Drive</span>
+        <div class="reveal-up delay-100 flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#0081fb] group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="trending-up" class="w-6 h-6"></i></div>
+          <span class="text-sm text-gray-400 font-medium text-center">Meta Ads</span>
         </div>
-        <div class="flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
-          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-brand-emerald group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="brain"></i></div>
-          <span class="text-xs text-gray-400 font-medium">ChatGPT</span>
+        <div class="reveal-up delay-200 flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#34a853] group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="folder-cloud" class="w-6 h-6"></i></div>
+          <span class="text-sm text-gray-400 font-medium text-center">Google Drive</span>
         </div>
-        <div class="flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
-          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-pink-500 group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="camera"></i></div>
-          <span class="text-xs text-gray-400 font-medium">Instagram</span>
+        <div class="reveal-up delay-300 flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-brand-emerald group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="brain" class="w-6 h-6"></i></div>
+          <span class="text-sm text-gray-400 font-medium">ChatGPT</span>
         </div>
-        <div class="flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
-          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#1877f2] group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="facebook"></i></div>
-          <span class="text-xs text-gray-400 font-medium">Facebook</span>
+        <div class="reveal-up delay-400 flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-pink-500 group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="camera" class="w-6 h-6"></i></div>
+          <span class="text-sm text-gray-400 font-medium">Instagram</span>
         </div>
-        <div class="flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
-          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-white group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="music"></i></div>
-          <span class="text-xs text-gray-400 font-medium">TikTok</span>
+        <div class="reveal-up delay-100 flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#1877f2] group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="facebook" class="w-6 h-6"></i></div>
+          <span class="text-sm text-gray-400 font-medium">Facebook</span>
         </div>
-        <div class="flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
-          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#0a66c2] group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="linkedin"></i></div>
-          <span class="text-xs text-gray-400 font-medium">LinkedIn</span>
+        <div class="reveal-up delay-200 flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#0a66c2] group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="linkedin" class="w-6 h-6"></i></div>
+          <span class="text-sm text-gray-400 font-medium">LinkedIn</span>
         </div>
-        <div class="flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
-          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#0f9d58] group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="table"></i></div>
-          <span class="text-xs text-gray-400 font-medium text-center">Google Sheets</span>
+        <div class="reveal-up delay-300 flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#0f9d58] group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="table" class="w-6 h-6"></i></div>
+          <span class="text-sm text-gray-400 font-medium text-center">Google Sheets</span>
         </div>
-        <div class="flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
-          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#0052cc] group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="list-checks"></i></div>
-          <span class="text-xs text-gray-400 font-medium">Trello</span>
+        <div class="reveal-up delay-400 flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:-translate-y-1 hover:border-brand-teal/30 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#0052cc] group-hover:bg-white/10 group-hover:scale-110 transition-all"><i data-lucide="list-checks" class="w-6 h-6"></i></div>
+          <span class="text-sm text-gray-400 font-medium">Trello</span>
         </div>
       </div>
-      <p class="text-center text-sm text-gray-500 italic">& continuously learning new tools to stay ahead of trends ✦</p>
+      <p class="reveal-up text-center text-sm text-gray-500 italic">& continuously learning new tools to stay ahead of trends ✦</p>
     </div>
   </section>
 
   <section id="portfolio" class="relative z-10 py-24 bg-[#0d0d0d]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
+      <div class="text-center mb-12 reveal-up">
         <span class="text-brand-teal text-xs font-bold tracking-[0.2em] uppercase mb-4 block">── Selected Work ──</span>
         <h2 class="font-serif text-4xl md:text-5xl font-extrabold text-white mb-4">Featured Projects</h2>
         <p class="text-gray-400 text-lg">A curated selection of projects showcasing brand strategy, visual design, and social media excellence.</p>
       </div>
 
-      <div class="flex flex-wrap justify-center gap-3 mb-12">
+      <div class="reveal-up delay-100 flex flex-wrap justify-center gap-3 mb-12">
         <button class="filter-tab active px-5 py-2 rounded-full text-xs font-bold tracking-wider uppercase bg-brand-teal/10 text-brand-teal border border-brand-teal/30 transition-colors" data-filter="all">All</button>
         <button class="filter-tab px-5 py-2 rounded-full text-xs font-bold tracking-wider uppercase text-gray-500 hover:text-white border border-transparent hover:border-white/20 transition-colors" data-filter="social">Social Media</button>
         <button class="filter-tab px-5 py-2 rounded-full text-xs font-bold tracking-wider uppercase text-gray-500 hover:text-white border border-transparent hover:border-white/20 transition-colors" data-filter="branding">Branding</button>
@@ -310,47 +334,47 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         
-        <div class="portfolio-item bg-white/[0.02] border border-white/5 rounded-3xl overflow-hidden hover:-translate-y-2 hover:border-brand-teal/30 transition-all duration-500 group flex flex-col" data-category="social">
-          <div class="w-full aspect-[16/10] bg-black flex items-center justify-center text-6xl opacity-80 group-hover:scale-105 transition-transform duration-500">📱</div>
+        <div class="reveal-up delay-200 portfolio-item bg-white/[0.02] border border-white/5 rounded-3xl overflow-hidden hover:-translate-y-2 hover:border-brand-teal/30 transition-all duration-500 group flex flex-col" data-category="social">
+          <div class="w-full aspect-[16/10] bg-black flex items-center justify-center text-6xl opacity-80 group-hover:scale-105 transition-transform duration-500"><i data-lucide="smartphone" class="w-16 h-16 text-brand-teal/50"></i></div>
           <div class="p-8 flex flex-col flex-grow z-10 bg-black/60 backdrop-blur-md">
             <div class="flex flex-wrap gap-2 mb-4">
               <span class="text-[10px] uppercase tracking-wider font-bold px-3 py-1 bg-brand-teal/10 text-brand-teal border border-brand-teal/20 rounded-full w-max">Social Media</span>
               <span class="text-[10px] uppercase tracking-wider font-bold px-3 py-1 bg-brand-teal/10 text-brand-teal border border-brand-teal/20 rounded-full w-max">Content Strategy</span>
             </div>
             <h3 class="text-xl font-bold text-white mb-3">EthisX — Social Media Marketing</h3>
-            <p class="text-sm text-gray-400 mb-6 flex-grow">Managed complete social media strategy, content creation, and visual design for a global ethical investment platform targeting international audiences.</p>
+            <p class="text-sm text-gray-400 mb-6 flex-grow">Managed complete social media strategy, content creation, and visual design for a global ethical investment platform.</p>
             <a href="#" class="text-sm font-bold text-brand-teal hover:underline flex items-center gap-1 group-hover:gap-2 transition-all">View Project <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
           </div>
         </div>
 
-        <div class="portfolio-item bg-white/[0.02] border border-white/5 rounded-3xl overflow-hidden hover:-translate-y-2 hover:border-brand-teal/30 transition-all duration-500 group flex flex-col" data-category="graphic">
-          <div class="w-full aspect-[16/10] bg-black flex items-center justify-center text-6xl opacity-80 group-hover:scale-105 transition-transform duration-500">💻</div>
+        <div class="reveal-up delay-300 portfolio-item bg-white/[0.02] border border-white/5 rounded-3xl overflow-hidden hover:-translate-y-2 hover:border-brand-teal/30 transition-all duration-500 group flex flex-col" data-category="graphic">
+          <div class="w-full aspect-[16/10] bg-black flex items-center justify-center text-6xl opacity-80 group-hover:scale-105 transition-transform duration-500"><i data-lucide="monitor" class="w-16 h-16 text-brand-emerald/50"></i></div>
           <div class="p-8 flex flex-col flex-grow z-10 bg-black/60 backdrop-blur-md">
             <div class="flex flex-wrap gap-2 mb-4">
               <span class="text-[10px] uppercase tracking-wider font-bold px-3 py-1 bg-brand-teal/10 text-brand-teal border border-brand-teal/20 rounded-full w-max">Graphic Design</span>
               <span class="text-[10px] uppercase tracking-wider font-bold px-3 py-1 bg-brand-teal/10 text-brand-teal border border-brand-teal/20 rounded-full w-max">SMM</span>
             </div>
             <h3 class="text-xl font-bold text-white mb-3">SquarePK — Graphic Design & SMM</h3>
-            <p class="text-sm text-gray-400 mb-6 flex-grow">Created high-converting campaign graphics, tech product creatives, and educational content for Pakistan's leading technology e-commerce platform.</p>
+            <p class="text-sm text-gray-400 mb-6 flex-grow">Created high-converting campaign graphics, tech product creatives, and educational content for leading tech platform.</p>
             <a href="#" class="text-sm font-bold text-brand-teal hover:underline flex items-center gap-1 group-hover:gap-2 transition-all">View Project <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
           </div>
         </div>
 
-        <div class="portfolio-item bg-white/[0.02] border border-white/5 rounded-3xl overflow-hidden hover:-translate-y-2 hover:border-brand-teal/30 transition-all duration-500 group flex flex-col" data-category="app">
-          <div class="w-full aspect-[16/10] bg-black flex items-center justify-center text-6xl opacity-80 group-hover:scale-105 transition-transform duration-500">⚙️</div>
+        <div class="reveal-up delay-400 portfolio-item bg-white/[0.02] border border-white/5 rounded-3xl overflow-hidden hover:-translate-y-2 hover:border-brand-teal/30 transition-all duration-500 group flex flex-col" data-category="app">
+          <div class="w-full aspect-[16/10] bg-black flex items-center justify-center text-6xl opacity-80 group-hover:scale-105 transition-transform duration-500"><i data-lucide="settings" class="w-16 h-16 text-gray-400"></i></div>
           <div class="p-8 flex flex-col flex-grow z-10 bg-black/60 backdrop-blur-md">
             <div class="flex flex-wrap gap-2 mb-4">
               <span class="text-[10px] uppercase tracking-wider font-bold px-3 py-1 bg-brand-teal/10 text-brand-teal border border-brand-teal/20 rounded-full w-max">Branding</span>
               <span class="text-[10px] uppercase tracking-wider font-bold px-3 py-1 bg-brand-teal/10 text-brand-teal border border-brand-teal/20 rounded-full w-max">App Design</span>
             </div>
             <h3 class="text-xl font-bold text-white mb-3">InvoiceMe — Branding & App Graphics</h3>
-            <p class="text-sm text-gray-400 mb-6 flex-grow">Designed complete visual identity, in-app UI elements, and Play Store promotional graphics for a modern invoicing application.</p>
+            <p class="text-sm text-gray-400 mb-6 flex-grow">Designed complete visual identity, in-app UI elements, and Play Store promotional graphics for a modern app.</p>
             <a href="#" class="text-sm font-bold text-brand-teal hover:underline flex items-center gap-1 group-hover:gap-2 transition-all">View Project <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
           </div>
         </div>
 
-        <div class="portfolio-item bg-white/[0.02] border border-white/5 rounded-3xl overflow-hidden hover:-translate-y-2 hover:border-brand-teal/30 transition-all duration-500 group flex flex-col" data-category="branding">
-          <div class="w-full aspect-[16/10] bg-black flex items-center justify-center text-6xl opacity-80 group-hover:scale-105 transition-transform duration-500">💎</div>
+        <div class="reveal-up delay-100 portfolio-item bg-white/[0.02] border border-white/5 rounded-3xl overflow-hidden hover:-translate-y-2 hover:border-brand-teal/30 transition-all duration-500 group flex flex-col" data-category="branding">
+          <div class="w-full aspect-[16/10] bg-black flex items-center justify-center text-6xl opacity-80 group-hover:scale-105 transition-transform duration-500"><i data-lucide="gem" class="w-16 h-16 text-blue-400"></i></div>
           <div class="p-8 flex flex-col flex-grow z-10 bg-black/60 backdrop-blur-md">
             <div class="flex flex-wrap gap-2 mb-4">
               <span class="text-[10px] uppercase tracking-wider font-bold px-3 py-1 bg-brand-teal/10 text-brand-teal border border-brand-teal/20 rounded-full w-max">Logo Design</span>
@@ -362,20 +386,20 @@
           </div>
         </div>
         
-        <div class="portfolio-item bg-white/[0.02] border border-white/5 rounded-3xl overflow-hidden hover:-translate-y-2 hover:border-brand-teal/30 transition-all duration-500 group flex flex-col" data-category="branding">
-          <div class="w-full aspect-[16/10] bg-black flex items-center justify-center text-6xl opacity-80 group-hover:scale-105 transition-transform duration-500">🌐</div>
+        <div class="reveal-up delay-200 portfolio-item bg-white/[0.02] border border-white/5 rounded-3xl overflow-hidden hover:-translate-y-2 hover:border-brand-teal/30 transition-all duration-500 group flex flex-col" data-category="branding">
+          <div class="w-full aspect-[16/10] bg-black flex items-center justify-center text-6xl opacity-80 group-hover:scale-105 transition-transform duration-500"><i data-lucide="globe" class="w-16 h-16 text-brand-teal/40"></i></div>
           <div class="p-8 flex flex-col flex-grow z-10 bg-black/60 backdrop-blur-md">
             <div class="flex flex-wrap gap-2 mb-4">
               <span class="text-[10px] uppercase tracking-wider font-bold px-3 py-1 bg-brand-teal/10 text-brand-teal border border-brand-teal/20 rounded-full w-max">Brand Identity</span>
               <span class="text-[10px] uppercase tracking-wider font-bold px-3 py-1 bg-brand-teal/10 text-brand-teal border border-brand-teal/20 rounded-full w-max">Content</span>
             </div>
             <h3 class="text-xl font-bold text-white mb-3">Rahgeer — Platform Branding</h3>
-            <p class="text-sm text-gray-400 mb-6 flex-grow">Built complete digital identity, content ecosystem, and visual language for a next-generation community engagement platform.</p>
+            <p class="text-sm text-gray-400 mb-6 flex-grow">Built complete digital identity, content ecosystem, and visual language for a next-generation community platform.</p>
             <a href="#" class="text-sm font-bold text-brand-teal hover:underline flex items-center gap-1 group-hover:gap-2 transition-all">View Project <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
           </div>
         </div>
 
-        <div class="portfolio-item border border-dashed border-brand-teal/30 bg-brand-teal/[0.02] rounded-3xl flex flex-col items-center justify-center p-8 min-h-[300px] hover:bg-brand-teal/[0.05] hover:border-brand-teal/60 transition-all cursor-pointer group" data-category="all">
+        <div class="reveal-up delay-300 portfolio-item border border-dashed border-brand-teal/30 bg-brand-teal/[0.02] rounded-3xl flex flex-col items-center justify-center p-8 min-h-[300px] hover:bg-brand-teal/[0.05] hover:border-brand-teal/60 transition-all cursor-pointer group" data-category="all">
           <i data-lucide="plus" class="w-12 h-12 text-brand-teal mb-4 group-hover:scale-125 transition-transform"></i>
           <h3 class="text-xl font-bold text-white mb-2">View All Projects</h3>
           <p class="text-sm text-gray-400 text-center">Explore the complete portfolio</p>
@@ -387,16 +411,15 @@
 
   <section class="relative z-10 py-24 border-t border-white/5 bg-black">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
+      <div class="text-center mb-16 reveal-up">
         <span class="text-brand-teal text-xs font-bold tracking-[0.2em] uppercase mb-4 block">── Work Categories ──</span>
         <h2 class="font-serif text-4xl md:text-5xl font-extrabold text-white mb-4">Explore by Category</h2>
         <p class="text-gray-400 text-lg">Browse through different types of creative work and design projects.</p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        
-        <div class="col-span-1 sm:col-span-2 relative h-48 sm:h-64 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black group cursor-pointer border border-white/5 hover:border-brand-teal/30 transition-all">
-          <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-10 group-hover:scale-110 transition-transform duration-500">📱</div>
+      <div class="masonry-grid">
+        <div class="category-card reveal-up delay-100 relative rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black group cursor-pointer border border-white/5 hover:border-brand-teal/30 transition-all">
+          <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-10 group-hover:scale-110 transition-transform duration-500"><i data-lucide="smartphone" class="w-32 h-32"></i></div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
           <div class="absolute bottom-6 left-6 right-6">
             <h3 class="text-xl font-bold text-white group-hover:text-brand-teal transition-colors flex items-center justify-between">Social Media Posts <i data-lucide="arrow-right" class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity"></i></h3>
@@ -404,8 +427,8 @@
           </div>
         </div>
 
-        <div class="relative h-48 sm:h-64 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black group cursor-pointer border border-white/5 hover:border-brand-teal/30 transition-all">
-          <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-10 group-hover:scale-110 transition-transform duration-500">▶️</div>
+        <div class="category-card reveal-up delay-200 relative rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black group cursor-pointer border border-white/5 hover:border-brand-teal/30 transition-all">
+          <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-10 group-hover:scale-110 transition-transform duration-500"><i data-lucide="youtube" class="w-24 h-24"></i></div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
           <div class="absolute bottom-6 left-6 right-6">
             <h3 class="text-lg font-bold text-white group-hover:text-brand-teal transition-colors">YT Thumbnails</h3>
@@ -413,17 +436,17 @@
           </div>
         </div>
 
-        <div class="relative h-48 sm:h-64 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black group cursor-pointer border border-white/5 hover:border-brand-teal/30 transition-all">
-          <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-10 group-hover:scale-110 transition-transform duration-500">🎯</div>
+        <div class="category-card reveal-up delay-300 relative rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black group cursor-pointer border border-white/5 hover:border-brand-teal/30 transition-all">
+          <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-10 group-hover:scale-110 transition-transform duration-500"><i data-lucide="target" class="w-24 h-24"></i></div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
           <div class="absolute bottom-6 left-6 right-6">
-            <h3 class="text-lg font-bold text-white group-hover:text-brand-teal transition-colors">Campaign Covers</h3>
+            <h3 class="text-lg font-bold text-white group-hover:text-brand-teal transition-colors">Campaigns</h3>
             <p class="text-xs text-brand-teal mt-1">● 18 Projects</p>
           </div>
         </div>
 
-        <div class="relative h-48 sm:h-64 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black group cursor-pointer border border-white/5 hover:border-brand-teal/30 transition-all">
-          <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-10 group-hover:scale-110 transition-transform duration-500">💼</div>
+        <div class="category-card reveal-up delay-400 relative rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black group cursor-pointer border border-white/5 hover:border-brand-teal/30 transition-all">
+          <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-10 group-hover:scale-110 transition-transform duration-500"><i data-lucide="users" class="w-24 h-24"></i></div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
           <div class="absolute bottom-6 left-6 right-6">
             <h3 class="text-lg font-bold text-white group-hover:text-brand-teal transition-colors">Hiring Posts</h3>
@@ -431,17 +454,17 @@
           </div>
         </div>
 
-        <div class="relative h-48 sm:h-64 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black group cursor-pointer border border-white/5 hover:border-brand-teal/30 transition-all">
-          <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-10 group-hover:scale-110 transition-transform duration-500">📚</div>
+        <div class="category-card reveal-up delay-100 relative rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black group cursor-pointer border border-white/5 hover:border-brand-teal/30 transition-all">
+          <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-10 group-hover:scale-110 transition-transform duration-500"><i data-lucide="book-open" class="w-24 h-24"></i></div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
           <div class="absolute bottom-6 left-6 right-6">
-            <h3 class="text-lg font-bold text-white group-hover:text-brand-teal transition-colors">Educational Posts</h3>
+            <h3 class="text-lg font-bold text-white group-hover:text-brand-teal transition-colors">Educational</h3>
             <p class="text-xs text-brand-teal mt-1">● 15 Projects</p>
           </div>
         </div>
 
-        <div class="col-span-1 sm:col-span-2 relative h-48 sm:h-64 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black group cursor-pointer border border-white/5 hover:border-brand-teal/30 transition-all">
-          <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-10 group-hover:scale-110 transition-transform duration-500">✦</div>
+        <div class="category-card reveal-up delay-200 relative rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black group cursor-pointer border border-white/5 hover:border-brand-teal/30 transition-all">
+          <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-10 group-hover:scale-110 transition-transform duration-500"><i data-lucide="sparkles" class="w-32 h-32"></i></div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
           <div class="absolute bottom-6 left-6 right-6">
             <h3 class="text-xl font-bold text-white group-hover:text-brand-teal transition-colors flex items-center justify-between">Logo Design <i data-lucide="arrow-right" class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity"></i></h3>
@@ -449,8 +472,8 @@
           </div>
         </div>
 
-        <div class="relative h-48 sm:h-64 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black group cursor-pointer border border-white/5 hover:border-brand-teal/30 transition-all">
-          <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-10 group-hover:scale-110 transition-transform duration-500">🎮</div>
+        <div class="category-card reveal-up delay-300 relative rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black group cursor-pointer border border-white/5 hover:border-brand-teal/30 transition-all">
+          <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-10 group-hover:scale-110 transition-transform duration-500"><i data-lucide="gamepad-2" class="w-24 h-24"></i></div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
           <div class="absolute bottom-6 left-6 right-6">
             <h3 class="text-lg font-bold text-white group-hover:text-brand-teal transition-colors">Play Store Graphics</h3>
@@ -458,8 +481,8 @@
           </div>
         </div>
 
-        <div class="relative h-48 sm:h-64 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black group cursor-pointer border border-white/5 hover:border-brand-teal/30 transition-all">
-          <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-10 group-hover:scale-110 transition-transform duration-500">💼</div>
+        <div class="category-card reveal-up delay-400 relative rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black group cursor-pointer border border-white/5 hover:border-brand-teal/30 transition-all">
+          <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-10 group-hover:scale-110 transition-transform duration-500"><i data-lucide="briefcase" class="w-24 h-24"></i></div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
           <div class="absolute bottom-6 left-6 right-6">
             <h3 class="text-lg font-bold text-white group-hover:text-brand-teal transition-colors">LinkedIn Banners</h3>
@@ -467,24 +490,23 @@
           </div>
         </div>
 
-        <div class="relative h-48 sm:h-64 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black group cursor-pointer border border-white/5 hover:border-brand-teal/30 transition-all">
-          <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-10 group-hover:scale-110 transition-transform duration-500">🎬</div>
+        <div class="category-card reveal-up delay-100 relative rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black group cursor-pointer border border-white/5 hover:border-brand-teal/30 transition-all">
+          <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-10 group-hover:scale-110 transition-transform duration-500"><i data-lucide="film" class="w-24 h-24"></i></div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
           <div class="absolute bottom-6 left-6 right-6">
-            <h3 class="text-lg font-bold text-white group-hover:text-brand-teal transition-colors">Reels & Short Videos</h3>
+            <h3 class="text-lg font-bold text-white group-hover:text-brand-teal transition-colors">Reels & Videos</h3>
             <p class="text-xs text-brand-teal mt-1">● 22 Projects</p>
           </div>
         </div>
 
-        <div class="relative h-48 sm:h-64 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black group cursor-pointer border border-white/5 hover:border-brand-teal/30 transition-all">
-          <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-10 group-hover:scale-110 transition-transform duration-500">🎞️</div>
+        <div class="category-card reveal-up delay-200 relative rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-black group cursor-pointer border border-white/5 hover:border-brand-teal/30 transition-all">
+          <div class="absolute inset-0 flex items-center justify-center text-7xl opacity-10 group-hover:scale-110 transition-transform duration-500"><i data-lucide="play-circle" class="w-24 h-24"></i></div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
           <div class="absolute bottom-6 left-6 right-6">
             <h3 class="text-lg font-bold text-white group-hover:text-brand-teal transition-colors">Intro/Outro Videos</h3>
             <p class="text-xs text-brand-teal mt-1">● 6 Projects</p>
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -492,58 +514,60 @@
   <section id="why" class="relative z-10 py-24 bg-[#0a0a0a] border-y border-white/5 text-center overflow-hidden">
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-teal/5 blur-[200px] rounded-full pointer-events-none"></div>
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <span class="text-brand-teal text-xs font-bold tracking-[0.2em] uppercase mb-4 block">── Why Choose Me ──</span>
-      <h2 class="font-serif text-4xl md:text-5xl font-extrabold text-white mb-6">Why Brands Choose <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-teal to-brand-emerald italic">to Work With Me</span></h2>
-      <p class="text-gray-400 text-base md:text-lg mb-16 max-w-3xl mx-auto">I don't just design — I think strategically. Every visual, every post, every campaign is crafted with purpose. My approach combines creative excellence with data-driven insights to build brands that don't just look premium — they perform, engage, and grow sustainably.</p>
+      <div class="reveal-up">
+        <span class="text-brand-teal text-xs font-bold tracking-[0.2em] uppercase mb-4 block">── Why Choose Me ──</span>
+        <h2 class="font-serif text-4xl md:text-5xl font-extrabold text-white mb-6">Why Brands Choose <br><span class="text-gradient italic">to Work With Me</span></h2>
+        <p class="text-gray-400 text-base md:text-lg mb-16 max-w-3xl mx-auto">I don't just design — I think strategically. Every visual, every post, every campaign is crafted with purpose. My approach combines creative excellence with data-driven insights to build brands that don't just look premium — they perform, engage, and grow sustainably.</p>
+      </div>
       
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
-        <div class="flex flex-col items-center group">
-          <div class="w-14 h-14 rounded-full bg-brand-teal/10 border border-brand-teal/30 flex items-center justify-center text-brand-teal mb-4 group-hover:scale-110 group-hover:bg-brand-teal/20 transition-all"><i data-lucide="target"></i></div>
+        <div class="reveal-up delay-100 flex flex-col items-center group">
+          <div class="w-16 h-16 rounded-full bg-brand-teal/10 border border-brand-teal/30 flex items-center justify-center text-brand-teal mb-4 group-hover:scale-110 group-hover:bg-brand-teal/20 transition-all"><i data-lucide="target" class="w-7 h-7"></i></div>
           <h3 class="text-lg font-bold text-white mb-2">Strategy + Creativity</h3>
           <p class="text-sm text-gray-400">Every design decision is backed by strategic thinking.</p>
         </div>
-        <div class="flex flex-col items-center group">
-          <div class="w-14 h-14 rounded-full bg-brand-teal/10 border border-brand-teal/30 flex items-center justify-center text-brand-teal mb-4 group-hover:scale-110 group-hover:bg-brand-teal/20 transition-all"><i data-lucide="trending-up"></i></div>
+        <div class="reveal-up delay-200 flex flex-col items-center group">
+          <div class="w-16 h-16 rounded-full bg-brand-teal/10 border border-brand-teal/30 flex items-center justify-center text-brand-teal mb-4 group-hover:scale-110 group-hover:bg-brand-teal/20 transition-all"><i data-lucide="trending-up" class="w-7 h-7"></i></div>
           <h3 class="text-lg font-bold text-white mb-2">Results-Oriented</h3>
           <p class="text-sm text-gray-400">Focused on metrics, engagement, and real growth.</p>
         </div>
-        <div class="flex flex-col items-center group">
-          <div class="w-14 h-14 rounded-full bg-brand-teal/10 border border-brand-teal/30 flex items-center justify-center text-brand-teal mb-4 group-hover:scale-110 group-hover:bg-brand-teal/20 transition-all"><i data-lucide="palette"></i></div>
+        <div class="reveal-up delay-300 flex flex-col items-center group">
+          <div class="w-16 h-16 rounded-full bg-brand-teal/10 border border-brand-teal/30 flex items-center justify-center text-brand-teal mb-4 group-hover:scale-110 group-hover:bg-brand-teal/20 transition-all"><i data-lucide="palette" class="w-7 h-7"></i></div>
           <h3 class="text-lg font-bold text-white mb-2">Brand Consistency</h3>
           <p class="text-sm text-gray-400">Cohesive visual language across all touchpoints.</p>
         </div>
-        <div class="flex flex-col items-center group">
-          <div class="w-14 h-14 rounded-full bg-brand-teal/10 border border-brand-teal/30 flex items-center justify-center text-brand-teal mb-4 group-hover:scale-110 group-hover:bg-brand-teal/20 transition-all"><i data-lucide="message-circle"></i></div>
+        <div class="reveal-up delay-400 flex flex-col items-center group">
+          <div class="w-16 h-16 rounded-full bg-brand-teal/10 border border-brand-teal/30 flex items-center justify-center text-brand-teal mb-4 group-hover:scale-110 group-hover:bg-brand-teal/20 transition-all"><i data-lucide="message-circle" class="w-7 h-7"></i></div>
           <h3 class="text-lg font-bold text-white mb-2">Clear Communication</h3>
           <p class="text-sm text-gray-400">Transparent process with regular updates.</p>
         </div>
-        <div class="flex flex-col items-center group">
-          <div class="w-14 h-14 rounded-full bg-brand-teal/10 border border-brand-teal/30 flex items-center justify-center text-brand-teal mb-4 group-hover:scale-110 group-hover:bg-brand-teal/20 transition-all"><i data-lucide="zap"></i></div>
+        <div class="reveal-up delay-100 flex flex-col items-center group lg:col-start-auto sm:col-span-2 lg:col-span-1">
+          <div class="w-16 h-16 rounded-full bg-brand-teal/10 border border-brand-teal/30 flex items-center justify-center text-brand-teal mb-4 group-hover:scale-110 group-hover:bg-brand-teal/20 transition-all"><i data-lucide="zap" class="w-7 h-7"></i></div>
           <h3 class="text-lg font-bold text-white mb-2">On-Time Delivery</h3>
           <p class="text-sm text-gray-400">Professional workflow, always on schedule.</p>
         </div>
       </div>
-      <a href="#contact" class="px-8 py-4 rounded-full bg-gradient-to-r from-brand-teal to-brand-emerald text-black font-bold hover:scale-105 transition-transform inline-block shadow-[0_4px_20px_rgba(45,212,191,0.3)]">Start Your Project →</a>
+      <a href="#contact" class="reveal-up delay-200 px-8 py-4 rounded-full bg-gradient-to-r from-brand-teal to-brand-emerald text-black font-bold hover:scale-105 transition-transform inline-block shadow-[0_4px_20px_rgba(45,212,191,0.3)]">Start Your Project →</a>
     </div>
   </section>
 
   <section id="stats" class="relative z-10 py-16 bg-[#0d0d0d]">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:divide-x divide-white/10 text-center">
-        <div class="flex flex-col items-center justify-center">
-          <span class="font-serif text-4xl md:text-5xl font-bold bg-gradient-to-r from-brand-teal to-brand-emerald bg-clip-text text-transparent mb-2">50+</span>
+        <div class="reveal-up delay-100 flex flex-col items-center justify-center">
+          <span class="font-serif text-4xl md:text-5xl font-bold text-gradient mb-2">50+</span>
           <span class="text-xs uppercase tracking-wider text-gray-400 font-bold">Projects Completed</span>
         </div>
-        <div class="flex flex-col items-center justify-center">
-          <span class="font-serif text-4xl md:text-5xl font-bold bg-gradient-to-r from-brand-teal to-brand-emerald bg-clip-text text-transparent mb-2">20+</span>
+        <div class="reveal-up delay-200 flex flex-col items-center justify-center">
+          <span class="font-serif text-4xl md:text-5xl font-bold text-gradient mb-2">20+</span>
           <span class="text-xs uppercase tracking-wider text-gray-400 font-bold">Happy Clients</span>
         </div>
-        <div class="flex flex-col items-center justify-center">
-          <span class="font-serif text-4xl md:text-5xl font-bold bg-gradient-to-r from-brand-teal to-brand-emerald bg-clip-text text-transparent mb-2">3+</span>
+        <div class="reveal-up delay-300 flex flex-col items-center justify-center">
+          <span class="font-serif text-4xl md:text-5xl font-bold text-gradient mb-2">3+</span>
           <span class="text-xs uppercase tracking-wider text-gray-400 font-bold">Years Experience</span>
         </div>
-        <div class="flex flex-col items-center justify-center">
-          <span class="font-serif text-4xl md:text-5xl font-bold bg-gradient-to-r from-brand-teal to-brand-emerald bg-clip-text text-transparent mb-2">100+</span>
+        <div class="reveal-up delay-400 flex flex-col items-center justify-center">
+          <span class="font-serif text-4xl md:text-5xl font-bold text-gradient mb-2">100+</span>
           <span class="text-xs uppercase tracking-wider text-gray-400 font-bold">Designs Created</span>
         </div>
       </div>
@@ -552,19 +576,21 @@
 
   <section id="testimonials" class="relative z-10 py-24 bg-[#0a0a0a] border-t border-white/5">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
+      <div class="text-center mb-16 reveal-up">
         <span class="text-brand-teal text-xs font-bold tracking-[0.2em] uppercase mb-4 block">── Client Testimonials ──</span>
         <h2 class="font-serif text-4xl md:text-5xl font-extrabold text-white mb-4">What Clients Say</h2>
         <p class="text-gray-400 text-lg max-w-2xl mx-auto">Don't just take my word for it — hear from the brands and professionals I've had the pleasure of working with.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-        <div class="bg-white/[0.03] backdrop-blur-sm border border-white/5 p-8 rounded-3xl hover:-translate-y-2 hover:border-brand-teal/30 transition-all duration-300 flex flex-col relative">
+        <div class="reveal-up delay-100 bg-white/[0.03] border border-white/5 p-8 rounded-3xl hover:-translate-y-2 hover:border-brand-teal/30 transition-all duration-300 flex flex-col relative shadow-lg">
           <span class="absolute top-4 left-6 text-6xl font-serif text-brand-teal/10">"</span>
-          <div class="flex gap-1 text-yellow-500 mb-6">★★★★★</div>
+          <div class="flex gap-1 text-yellow-500 mb-6">
+            <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
+          </div>
           <p class="text-gray-300 text-sm leading-relaxed mb-8 italic relative z-10 flex-grow">Muhammad completely transformed our social media presence. His strategic approach to content planning and his stunning design work helped us triple our engagement in just 3 months. He doesn't just create posts — he builds brand experiences. Absolutely phenomenal to work with.</p>
           <div class="flex items-center gap-4 mt-auto border-t border-white/5 pt-6">
-            <div class="w-12 h-12 rounded-full border-2 border-brand-teal/30 bg-black flex items-center justify-center text-xl">👤</div>
+            <div class="w-12 h-12 rounded-full border-2 border-brand-teal/30 bg-black flex items-center justify-center text-gray-400"><i data-lucide="user" class="w-6 h-6"></i></div>
             <div>
               <h4 class="text-white font-bold text-sm">Ahmed R.</h4>
               <p class="text-gray-500 text-xs">CEO, Tech Startup</p>
@@ -572,12 +598,14 @@
           </div>
         </div>
 
-        <div class="bg-white/[0.03] backdrop-blur-sm border border-white/5 p-8 rounded-3xl hover:-translate-y-2 hover:border-brand-teal/30 transition-all duration-300 flex flex-col relative">
+        <div class="reveal-up delay-200 bg-white/[0.03] border border-white/5 p-8 rounded-3xl hover:-translate-y-2 hover:border-brand-teal/30 transition-all duration-300 flex flex-col relative shadow-lg">
           <span class="absolute top-4 left-6 text-6xl font-serif text-brand-teal/10">"</span>
-          <div class="flex gap-1 text-yellow-500 mb-6">★★★★★</div>
+          <div class="flex gap-1 text-yellow-500 mb-6">
+            <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
+          </div>
           <p class="text-gray-300 text-sm leading-relaxed mb-8 italic relative z-10 flex-grow">The level of design quality and strategic thinking Muhammad brings to every project is exceptional. He understood our brand vision instantly and delivered creatives that exceeded every expectation. His attention to detail and professionalism is unmatched in the industry.</p>
           <div class="flex items-center gap-4 mt-auto border-t border-white/5 pt-6">
-            <div class="w-12 h-12 rounded-full border-2 border-brand-teal/30 bg-black flex items-center justify-center text-xl">👤</div>
+            <div class="w-12 h-12 rounded-full border-2 border-brand-teal/30 bg-black flex items-center justify-center text-gray-400"><i data-lucide="user" class="w-6 h-6"></i></div>
             <div>
               <h4 class="text-white font-bold text-sm">Sarah K.</h4>
               <p class="text-gray-500 text-xs">Marketing Director, E-commerce</p>
@@ -585,12 +613,14 @@
           </div>
         </div>
 
-        <div class="bg-white/[0.03] backdrop-blur-sm border border-white/5 p-8 rounded-3xl hover:-translate-y-2 hover:border-brand-teal/30 transition-all duration-300 flex flex-col relative">
+        <div class="reveal-up delay-300 bg-white/[0.03] border border-white/5 p-8 rounded-3xl hover:-translate-y-2 hover:border-brand-teal/30 transition-all duration-300 flex flex-col relative shadow-lg">
           <span class="absolute top-4 left-6 text-6xl font-serif text-brand-teal/10">"</span>
-          <div class="flex gap-1 text-yellow-500 mb-6">★★★★★</div>
+          <div class="flex gap-1 text-yellow-500 mb-6">
+            <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i><i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
+          </div>
           <p class="text-gray-300 text-sm leading-relaxed mb-8 italic relative z-10 flex-grow">Working with Muhammad was hands down the best decision for our brand refresh. He delivered a complete visual identity that perfectly captured our values. Professional, creative, reliable, and always on time. Our brand has never looked more premium and cohesive.</p>
           <div class="flex items-center gap-4 mt-auto border-t border-white/5 pt-6">
-            <div class="w-12 h-12 rounded-full border-2 border-brand-teal/30 bg-black flex items-center justify-center text-xl">👤</div>
+            <div class="w-12 h-12 rounded-full border-2 border-brand-teal/30 bg-black flex items-center justify-center text-gray-400"><i data-lucide="user" class="w-6 h-6"></i></div>
             <div>
               <h4 class="text-white font-bold text-sm">Omar T.</h4>
               <p class="text-gray-500 text-xs">Founder, Digital Agency</p>
@@ -599,7 +629,7 @@
         </div>
       </div>
       
-      <div class="text-center text-sm text-gray-400">
+      <div class="reveal-up delay-400 text-center text-sm text-gray-400">
         <span>Join 20+ satisfied clients who trust Muhammad with their brand's digital presence.</span> 
         <a href="#portfolio" class="text-brand-teal font-bold hover:underline ml-2">→ View More Reviews</a>
       </div>
@@ -608,11 +638,11 @@
 
   <section id="contact" class="relative z-10 py-32 border-t border-white/5 text-center">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <span class="text-brand-teal text-xs font-bold tracking-[0.2em] uppercase mb-4 block">── Let's Connect ──</span>
-      <h2 class="font-serif text-4xl md:text-6xl font-extrabold text-white mb-6">Ready to <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-teal to-brand-emerald italic">Elevate</span><br> Your Brand?</h2>
-      <p class="text-gray-400 text-base md:text-lg mb-10">I'm currently available for freelance projects, long-term collaborations, and brand partnerships. Whether you need social media management, graphic design, or a complete brand identity — let's create something extraordinary together.</p>
+      <span class="reveal-up text-brand-teal text-xs font-bold tracking-[0.2em] uppercase mb-4 block">── Let's Connect ──</span>
+      <h2 class="reveal-up delay-100 font-serif text-4xl md:text-6xl font-extrabold text-white mb-6">Ready to <span class="text-gradient italic">Elevate</span><br> Your Brand?</h2>
+      <p class="reveal-up delay-200 text-gray-400 text-base md:text-lg mb-10">I'm currently available for freelance projects, long-term collaborations, and brand partnerships. Whether you need social media management, graphic design, or a complete brand identity — let's create something extraordinary together.</p>
       
-      <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-10">
+      <div class="reveal-up delay-300 flex flex-col sm:flex-row justify-center items-center gap-4 mb-10">
         <a href="mailto:hamza.malik.designss@gmail.com" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-brand-teal to-brand-emerald text-black font-bold flex items-center justify-center gap-2 hover:scale-105 transition-transform shadow-[0_4px_20px_rgba(45,212,191,0.2)]">
           <i data-lucide="mail" class="w-5 h-5"></i> Send Me an Email
         </a>
@@ -621,13 +651,12 @@
         </a>
       </div>
 
-      <div class="flex justify-center gap-6 text-gray-500 mb-8">
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:text-brand-teal hover:border-brand-teal hover:-translate-y-1 transition-all"><i data-lucide="instagram"></i></a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:text-brand-teal hover:border-brand-teal hover:-translate-y-1 transition-all"><i data-lucide="linkedin"></i></a>
-        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:text-brand-teal hover:border-brand-teal hover:-translate-y-1 transition-all"><i data-lucide="facebook"></i></a>
-        <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:text-brand-teal hover:border-brand-teal hover:-translate-y-1 transition-all"><i data-lucide="music"></i></a>
+      <div class="reveal-up delay-400 flex justify-center gap-6 text-gray-500 mb-8">
+        <a href="https://www.instagram.com/hamza_beast_/" target="_blank" rel="noopener noreferrer" class="w-14 h-14 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center hover:bg-brand-teal/10 hover:text-brand-teal hover:border-brand-teal hover:-translate-y-1 transition-all"><i data-lucide="instagram"></i></a>
+        <a href="https://web.facebook.com/profile.php?id=100041749311904" target="_blank" rel="noopener noreferrer" class="w-14 h-14 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center hover:bg-brand-teal/10 hover:text-brand-teal hover:border-brand-teal hover:-translate-y-1 transition-all"><i data-lucide="facebook"></i></a>
+        <a href="https://www.linkedin.com/in/malikhamzaofficial/" target="_blank" rel="noopener noreferrer" class="w-14 h-14 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center hover:bg-brand-teal/10 hover:text-brand-teal hover:border-brand-teal hover:-translate-y-1 transition-all"><i data-lucide="linkedin"></i></a>
       </div>
-      <span class="inline-block px-5 py-2 rounded-full border border-white/10 bg-white/[0.02] text-xs text-gray-400 font-medium tracking-wide">⚡ Average response time: Within 24 hours</span>
+      <span class="reveal-up delay-400 inline-block px-5 py-2 rounded-full border border-white/10 bg-white/[0.02] text-xs text-gray-400 font-medium tracking-wide">⚡ Average response time: Within 24 hours</span>
     </div>
   </section>
 
@@ -637,7 +666,7 @@
         
         <div class="flex flex-col items-center md:items-start">
           <div class="w-12 h-12 rounded-xl border border-brand-teal/30 bg-brand-teal/10 flex items-center justify-center mb-4 shadow-[0_0_15px_rgba(45,212,191,0.1)]">
-            <span class="font-serif font-bold text-xl bg-gradient-to-br from-brand-teal to-brand-emerald bg-clip-text text-transparent">MH</span>
+            <span class="font-serif font-bold text-xl text-gradient">MH</span>
           </div>
           <p class="text-sm italic text-gray-500 mb-2">Designing the future of brands.</p>
           <p class="text-xs text-gray-400 max-w-xs">Social Media Manager & Graphic Designer creating premium digital experiences.</p>
@@ -671,6 +700,100 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. Initialize Icons
+      if (window.lucide) { window.lucide.createIcons(); }
+
+      // 2. Scroll Animation Observer (Fade In & Slide Up)
+      const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target); // Only animate once
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.reveal-up').forEach((el) => {
+        observer.observe(el);
+      });
+
+      // 3. Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+      const menuIcon = mobileMenuBtn.querySelector('i');
+
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        mobileMenu.classList.toggle('flex');
+        
+        if (mobileMenu.classList.contains('hidden')) {
+          menuIcon.setAttribute('data-lucide', 'menu');
+        } else {
+          menuIcon.setAttribute('data-lucide', 'x');
+        }
+        window.lucide.createIcons();
+      });
+
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          mobileMenu.classList.remove('flex');
+          menuIcon.setAttribute('data-lucide', 'menu');
+          window.lucide.createIcons();
+        });
+      });
+
+      // 4. Smooth Scrolling for Anchor Links
+      document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      // 5. Portfolio Filtering Logic
+      const filterButtons = document.querySelectorAll('.filter-tab');
+      const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+      filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Reset button styles
+          filterButtons.forEach(btn => {
+            btn.classList.remove('bg-brand-teal/10', 'text-brand-teal', 'border-brand-teal/30');
+            btn.classList.add('text-gray-500', 'border-transparent');
+          });
+          
+          // Apply active style
+          button.classList.add('bg-brand-teal/10', 'text-brand-teal', 'border-brand-teal/30');
+          button.classList.remove('text-gray-500', 'border-transparent');
+
+          const filterValue = button.getAttribute('data-filter');
+
+          portfolioItems.forEach(item => {
+            if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+              item.classList.remove('hidden');
+              setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+              }, 50);
+            } else {
+              item.classList.add('hidden');
+              item.style.opacity = '0';
+              item.style.transform = 'translateY(20px)';
+            }
+          });
+        });
+      });
+    });
+  </script>
 </body>
 </html>
