@@ -1,41 +1,57 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Initialize Lucide Icons
+    // 1. Initialize Icons
     if (window.lucide) {
         window.lucide.createIcons();
     }
 
-    // 2. Mobile Menu Toggle Logic
+    // 2. Scroll Animation Observer (Fade In & Slide Up)
+    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target); // Only animate once
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal-up').forEach((el) => {
+        observer.observe(el);
+    });
+
+    // 3. Mobile Menu Toggle
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const mobileLinks = document.querySelectorAll('.mobile-link');
-    const menuIcon = mobileMenuBtn.querySelector('i');
+    
+    if (mobileMenuBtn && mobileMenu) {
+        const menuIcon = mobileMenuBtn.querySelector('i');
 
-    mobileMenuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-        mobileMenu.classList.toggle('flex');
-        
-        // Swap icon
-        if (mobileMenu.classList.contains('hidden')) {
-            menuIcon.setAttribute('data-lucide', 'menu');
-        } else {
-            menuIcon.setAttribute('data-lucide', 'x');
-        }
-        window.lucide.createIcons();
-    });
-
-    // Close mobile menu when a link is clicked
-    mobileLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.add('hidden');
-            mobileMenu.classList.remove('flex');
-            menuIcon.setAttribute('data-lucide', 'menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.setAttribute('data-lucide', 'menu');
+            } else {
+                menuIcon.setAttribute('data-lucide', 'x');
+            }
             window.lucide.createIcons();
         });
-    });
 
-    // 3. Smooth Scrolling for Navigation Links
-    const links = document.querySelectorAll('nav a[href^="#"]');
-    for (const link of links) {
+        // Close menu when a link is clicked
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+                menuIcon.setAttribute('data-lucide', 'menu');
+                window.lucide.createIcons();
+            });
+        });
+    }
+
+    // 4. Smooth Scrolling for Anchor Links
+    document.querySelectorAll('nav a[href^="#"]').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
@@ -43,15 +59,12 @@ document.addEventListener("DOMContentLoaded", () => {
             
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
-    }
+    });
 
-    // 4. Portfolio Filtering Logic
+    // 5. Portfolio Filtering Logic
     const filterButtons = document.querySelectorAll('.filter-tab');
     const portfolioItems = document.querySelectorAll('.portfolio-item');
 
@@ -63,17 +76,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 btn.classList.add('text-gray-500', 'border-transparent');
             });
             
-            // Add active style to clicked button
+            // Apply active style
             button.classList.add('bg-brand-teal/10', 'text-brand-teal', 'border-brand-teal/30');
             button.classList.remove('text-gray-500', 'border-transparent');
 
             const filterValue = button.getAttribute('data-filter');
 
             portfolioItems.forEach(item => {
-                // Determine if item matches filter
                 if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
                     item.classList.remove('hidden');
-                    // Add slight delay for animation
                     setTimeout(() => {
                         item.style.opacity = '1';
                         item.style.transform = 'translateY(0)';
