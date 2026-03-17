@@ -4,7 +4,36 @@ document.addEventListener("DOMContentLoaded", () => {
         window.lucide.createIcons();
     }
 
-    // 2. Smooth Scrolling for Navigation Links
+    // 2. Mobile Menu Toggle Logic
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+    const menuIcon = mobileMenuBtn.querySelector('i');
+
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        mobileMenu.classList.toggle('flex');
+        
+        // Swap icon
+        if (mobileMenu.classList.contains('hidden')) {
+            menuIcon.setAttribute('data-lucide', 'menu');
+        } else {
+            menuIcon.setAttribute('data-lucide', 'x');
+        }
+        window.lucide.createIcons();
+    });
+
+    // Close mobile menu when a link is clicked
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            mobileMenu.classList.remove('flex');
+            menuIcon.setAttribute('data-lucide', 'menu');
+            window.lucide.createIcons();
+        });
+    });
+
+    // 3. Smooth Scrolling for Navigation Links
     const links = document.querySelectorAll('nav a[href^="#"]');
     for (const link of links) {
         link.addEventListener('click', function(e) {
@@ -22,24 +51,29 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 3. Portfolio Filtering Logic
+    // 4. Portfolio Filtering Logic
     const filterButtons = document.querySelectorAll('.filter-tab');
     const portfolioItems = document.querySelectorAll('.portfolio-item');
 
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // Remove active class from all buttons
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            // Add active class to clicked button
-            button.classList.add('active');
+            // Reset button styles
+            filterButtons.forEach(btn => {
+                btn.classList.remove('bg-brand-teal/10', 'text-brand-teal', 'border-brand-teal/30');
+                btn.classList.add('text-gray-500', 'border-transparent');
+            });
+            
+            // Add active style to clicked button
+            button.classList.add('bg-brand-teal/10', 'text-brand-teal', 'border-brand-teal/30');
+            button.classList.remove('text-gray-500', 'border-transparent');
 
             const filterValue = button.getAttribute('data-filter');
 
             portfolioItems.forEach(item => {
-                // If the filter is 'all', show everything. Otherwise, match the category.
+                // Determine if item matches filter
                 if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
                     item.classList.remove('hidden');
-                    // Brief timeout ensures CSS animation plays correctly when unhiding
+                    // Add slight delay for animation
                     setTimeout(() => {
                         item.style.opacity = '1';
                         item.style.transform = 'translateY(0)';
