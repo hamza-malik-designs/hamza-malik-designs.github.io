@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const filterValue = button.getAttribute('data-filter');
 
             portfolioItems.forEach(item => {
-                if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                if (filterValue === 'all' || item.getAttribute('data-category').includes(filterValue)) {
                     item.classList.remove('hidden');
                     setTimeout(() => {
                         item.style.opacity = '1';
