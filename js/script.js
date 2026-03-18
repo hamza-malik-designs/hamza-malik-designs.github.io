@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 5. Portfolio Filtering Logic
+// 5. Portfolio Filtering Logic
     const filterButtons = document.querySelectorAll('.filter-tab');
     const portfolioItems = document.querySelectorAll('.portfolio-item');
 
@@ -76,15 +76,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 btn.classList.add('text-gray-500', 'border-transparent');
             });
             
-            // Apply active style
+            // Apply active style to the clicked button
             button.classList.add('bg-brand-teal/10', 'text-brand-teal', 'border-brand-teal/30');
             button.classList.remove('text-gray-500', 'border-transparent');
 
             const filterValue = button.getAttribute('data-filter');
 
             portfolioItems.forEach(item => {
-                if (filterValue === 'all' || item.getAttribute('data-category').includes(filterValue)) {
+                // Get the category string and split it into an array of words
+                const itemCategories = item.getAttribute('data-category') || '';
+                const categoryArray = itemCategories.split(' ');
+
+                // Check if the filter is 'all' OR if the array contains the exact filter word
+                if (filterValue === 'all' || categoryArray.includes(filterValue)) {
                     item.classList.remove('hidden');
+                    // Add slight delay for smooth animation
                     setTimeout(() => {
                         item.style.opacity = '1';
                         item.style.transform = 'translateY(0)';
@@ -97,4 +103,3 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     });
-});
