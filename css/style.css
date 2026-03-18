@@ -18,17 +18,20 @@ body {
   background-color: #0a0a0a;
 }
 
-/* Scroll Reveal Animations */
-.reveal-up {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s cubic-bezier(0.5, 0, 0, 1), transform 0.8s cubic-bezier(0.5, 0, 0, 1);
-}
-
-.reveal-up.active {
-  opacity: 1;
-  transform: translateY(0);
-}
+/* Scroll Reveal Animations (Hardware Accelerated) */
+    .reveal-up {
+      opacity: 0;
+      transform: translateY(40px);
+      /* Force mobile GPU to create a separate layer to stop flickering */
+      will-change: transform, opacity;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .reveal-up.active { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
 
 /* Animation Delays */
 .delay-100 { transition-delay: 100ms; }
